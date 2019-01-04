@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * This module holds functions useful for Drupal development.
+ *
+ * Please contribute!
+ */
+
+/**
+ * Implements hook_block_info().
+ *
+ * This hook declares what blocks are provided by the module.
+ */
+function block_d_block_info() {
+  $blocks['block_b'] = array(
+    'info' => t('project block'),
+    'status' => TRUE,
+    'region' => 'sidebar_second',
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ * Prepares the contents of the block.
+ */
+function block_d_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'block_b':
+      $block['subject'] = t('test block');
+      $block['content'] = display_content();
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Function() that is to be displayed.
+ */
+function display_content() {
+  global $user;
+  $username = $user->name;
+  $date = "Today is " . date("Y/m/d");
+  $content = $username . '<br>' . $date;
+  return $content;
+}
